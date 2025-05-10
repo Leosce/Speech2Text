@@ -7,13 +7,13 @@ from io import BytesIO
 # Load the processor (once for caching)
 @st.cache_resource
 def load_processor():
-    processor = AutoProcessor.from_pretrained("Qwen/Qwen2-Audio-7B-Instruct")
+    processor = AutoProcessor.from_pretrained("openai/whisper-tiny")  # Using Whisper tiny
     return processor
 
 processor = load_processor()
 
 # Set up the Streamlit app
-st.title("Qwen2-Audio Transcription")
+st.title("Whisper Tiny Transcription")
 st.write("Record or upload an audio file for transcription.")
 
 # Audio recording option
@@ -38,7 +38,7 @@ else:
 if audio_array is not None:
     pipe = pipeline(
         "automatic-speech-recognition",
-        model="Qwen/Qwen2-Audio-7B-Instruct",
+        model="openai/whisper-tiny",  # Using Whisper tiny
         processor=processor,  # Use the cached processor
     )
     transcription = pipe(audio_array, sampling_rate=sr)["text"]
