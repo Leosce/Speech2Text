@@ -1,6 +1,7 @@
 import streamlit as st
 import librosa
 from transformers import pipeline, AutoProcessor
+from streamlit_audio_recorder import st_audiorec
 from io import BytesIO
 
 # Load the processor (once for caching)
