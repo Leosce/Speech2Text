@@ -10,7 +10,6 @@ import torch
 # Load the processor (once for caching)
 @st.cache_resource
 def load_processor():
-    with st.spinner("Give it a sec..."):
         processor = AutoProcessor.from_pretrained("openai/whisper-tiny")  # Using Whisper tiny
         return processor
 
