@@ -39,7 +39,7 @@ else:
 
 # Transcribe the audio if available
 if audio_array is not None:
-    with st.spinner("Transcribing...")
+    with st.spinner("Transcribing..."):
         pipe = pipeline(
             "automatic-speech-recognition",
             model="openai/whisper-tiny",  # Using Whisper tiny
