@@ -4,3 +4,4 @@ transformers
 soundfile
 torch
 accelerate
+streamlit_audio_recorder
