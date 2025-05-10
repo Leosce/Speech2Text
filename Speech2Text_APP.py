@@ -36,12 +36,13 @@ else:
 
 # Transcribe the audio if available
 if audio_array is not None:
-    pipe = pipeline(
-        "automatic-speech-recognition",
-        model="openai/whisper-tiny",  # Using Whisper tiny
-        processor=processor,  # Use the cached processor
-    )
-    transcription = pipe(audio_array)["text"]
-
-    st.write("**Transcription:**")
-    st.write(transcription)
+    with st.spinner("Wait for it..."):
+        pipe = pipeline(
+            "automatic-speech-recognition",
+            model="openai/whisper-tiny",  # Using Whisper tiny
+            processor=processor,  # Use the cached processor
+        )
+        transcription = pipe(audio_array)["text"]
+    
+        st.write("**Transcription:**")
+        st.write(transcription)
