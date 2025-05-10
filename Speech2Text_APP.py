@@ -25,7 +25,7 @@ uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3"])
 # Process the audio
 if audio_data:
     # Convert audio data to the correct format
-    audio_bytes = BytesIO(audio_data.getvalue())
+    audio_bytes = BytesIO(audio_data)
     audio_array, sr = librosa.load(audio_bytes, sr=processor.feature_extractor.sampling_rate)
 elif uploaded_file:
     # Load audio from the uploaded file
