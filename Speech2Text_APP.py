@@ -5,8 +5,7 @@ from st_audiorec import st_audiorec
 from io import BytesIO
 import torch
 
-# Move model out of meta state
-pipe.model = pipe.model.to_empty(device="cuda" if torch.cuda.is_available() else "cpu")
+
 
 # Load the processor (once for caching)
 @st.cache_resource
@@ -45,6 +44,7 @@ if audio_array is not None:
         model="openai/whisper-tiny",  # Using Whisper tiny
         processor=processor,  # Use the cached processor
     )
+    pipe.model = pipe.model.to_empty(device="cuda" if torch.cuda.is_available() else "cpu")
     transcription = pipe(audio_array)["text"]
 
     st.write("**Transcription:**")
