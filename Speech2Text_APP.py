@@ -1,18 +1,15 @@
 import streamlit as st
 import librosa
-import numpy as np
-from transformers import Qwen2AudioForConditionalGeneration, AutoProcessor
+from transformers import pipeline, AutoProcessor
 from io import BytesIO
-import soundfile as sf
 
-# Load the model and processor
+# Load the processor (once for caching)
 @st.cache_resource
-def load_model():
+def load_processor():
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2-Audio-7B-Instruct")
-    model = Qwen2AudioForConditionalGeneration.from_pretrained("Qwen/Qwen2-Audio-7B-Instruct", device_map="auto")
-    return processor, model
+    return processor
 
-processor, model = load_model()
+processor = load_processor()
 
 # Set up the Streamlit app
 st.title("Qwen2-Audio Transcription")
@@ -38,11 +35,12 @@ else:
 
 # Transcribe the audio if available
 if audio_array is not None:
-    inputs = processor(audio=audio_array, return_tensors="pt", sampling_rate=sr)
-    inputs.input_values = inputs.input_values.to(model.device)
-
-    generated_ids = model.generate(**inputs, max_length=256)
-    transcription = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    pipe = pipeline(
+        "automatic-speech-recognition",
+        model="Qwen/Qwen2-Audio-7B-Instruct",
+        processor=processor,  # Use the cached processor
+    )
+    transcription = pipe(audio_array, sampling_rate=sr)["text"]
 
     st.write("**Transcription:**")
     st.write(transcription)
