@@ -17,7 +17,7 @@ st.title("Qwen2-Audio Transcription")
 st.write("Record or upload an audio file for transcription.")
 
 # Audio recording option
-audio_data = st.audio_recorder("Record audio (max 30 seconds)", max_seconds=30)
+audio_data = st_audiorec(max_seconds=30)
 
 # Audio upload option
 uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3"])
