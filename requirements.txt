@@ -5,3 +5,4 @@ soundfile
 torch
 accelerate
 streamlit-audiorecorder
+audio-recorder-streamlit
