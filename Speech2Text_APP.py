@@ -41,7 +41,7 @@ if audio_array is not None:
         model="openai/whisper-tiny",  # Using Whisper tiny
         processor=processor,  # Use the cached processor
     )
-    transcription = pipe(audio_array, sampling_rate=sr)["text"]
+    transcription = pipe(audio_array, return_tensors="pt")["text"]
 
     st.write("**Transcription:**")
     st.write(transcription)
