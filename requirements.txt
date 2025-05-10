@@ -4,5 +4,5 @@ transformers
 soundfile
 torch
 accelerate
-streamlit-audiorecorder
+streamlit-audiorec
 audio-recorder-streamlit
